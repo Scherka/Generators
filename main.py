@@ -109,7 +109,7 @@ def lfsr(n,args):
     if len(args)!=2:
         print("Некорректное количество аргументов")
         return
-    elif any(char not in '01' for char in str(args[0])):
+    elif checkBinVector(str(args[0])):
         print("Вектор должен состоять только из 0 и 1")
         return
     a,default = args
@@ -136,9 +136,17 @@ def lfsr(n,args):
         bar.next()
     bar.finish()
     return res
-def nfsr():
-    pass
-
+def nfsr(n, args):
+    if len(args)!=7:
+        print("Некорректное количество аргументов")
+        return
+    elif checkBinVector(args[0]) or checkBinVector(args[1]) or checkBinVector(args[2]):
+        print("Вектор должен состоять только из 0 и 1")
+        return
+    vec1,vec2,vec3,x1,x2,x3,w = args
+    res1 = lfsr(n, [vec1,x1])
+    res2 = lfsr(n, [vec2,x2])
+    res3 = lfsr(n, [vec3,x3])
 def mt():
     pass
 
@@ -150,6 +158,9 @@ def rsa():
 
 def bbs():
     pass
+
+def checkBinVector(vec):
+    return any(char not in '01' for char in str(vec[0]))
 
 if __name__ == '__main__':
     print(bin(13)[2:])
